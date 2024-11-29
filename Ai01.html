@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple AI Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    .messages div {
+      margin: 10px 0;
+    }
+    .user {
+      text-align: right;
+      color: blue;
+    }
+    .bot {
+      text-align: left;
+      color: green;
+    }
+    input {
+      width: calc(100% - 60px);
+      padding: 10px;
+      margin-right: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>AI Chatbot</h2>
+    <div class="messages" id="messages"></div>
+    <input type="text" id="user-input" placeholder="Type your message here">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    // Simulated chatbot logic
+    const botResponses = {
+      "hello": "Hi there! How can I assist you?",
+      "who are you": "I am an AI chatbot created to assist you.",
+      "bye": "Goodbye! Have a great day!",
+      "default": "Sorry, I don't understand that. Could you please rephrase?"
+    };
+
+    function getBotResponse(userInput) {
+      userInput = userInput.toLowerCase();
+      return botResponses[userInput] || botResponses["default"];
+    }
+
+    function sendMessage() {
+      const userInput = document.getElementById("user-input").value.trim();
+      if (!userInput) return;
+
+      const messagesDiv = document.getElementById("messages");
+
+      // Display user message
+      const userMessage = document.createElement("div");
+      userMessage.className = "user";
+      userMessage.textContent = "You: " + userInput;
+      messagesDiv.appendChild(userMessage);
+
+      // Get bot response
+      const botMessage = document.createElement("div");
+      botMessage.className = "bot";
+      botMessage.textContent = "Bot: " + getBotResponse(userInput);
+      messagesDiv.appendChild(botMessage);
+
+      // Scroll to the bottom
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      // Clear input field
+      document.getElementById("user-input").value = "";
+    }
+  </script>
+</body>
+</html>
